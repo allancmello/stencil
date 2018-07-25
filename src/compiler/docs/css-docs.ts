@@ -32,32 +32,40 @@ function parseCssComment(cssProps: d.CssCustomProperty[], comment: string) {
    * @prop --max-width: Max width of the alert
    */
 
-  const lines = comment.split(/\r?\n/);
-
-  lines.forEach(ln => {
-    let line = ln.trim();
+  const lines = comment.split(/\r?\n/).map(line => {
+    line = line.trim();
 
     while (line.startsWith('*')) {
       line = line.substring(1).trim();
     }
 
-    if (!line.startsWith(CSS_PROP_KEYWORD)) {
+    return line;
+  });
+
+  comment = lines.join(' ').trim();
+
+  while (comment.includes('  ')) {
+    comment = comment.replace('  ', ' ');
+  }
+
+  const docs = comment.split(CSS_PROP_KEYWORD);
+
+  docs.forEach(d => {
+    const doc = d.trim();
+
+    if (!doc.startsWith(`--`)) {
       return;
     }
 
-    line = line.substring(CSS_PROP_KEYWORD.length).trim();
-
-    if (!line.startsWith(`--`)) {
-      return;
-    }
-
-    const splt = line.split(`:`);
+    const splt = doc.split(`:`);
     const cssProp: d.CssCustomProperty = {
       name: splt[0].trim(),
       description: (splt.shift() && splt.join(`:`)).trim()
     };
 
-    cssProps.push(cssProp);
+    if (!cssProps.some(c => c.name === cssProp.name)) {
+      cssProps.push(cssProp);
+    }
   });
 
   return cssProps;

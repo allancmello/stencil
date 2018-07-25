@@ -19,6 +19,26 @@ describe('css-docs', () => {
     ]);
   });
 
+  it('multiline', () => {
+    const styleText = `
+      /**
+       * @prop --color:  This is the description
+       * for color.
+       @prop    --background   : This is the description
+                           for background. It is two
+                           * sentences and some :: man.
+       */
+      body {
+        color: red;
+      }
+    `;
+    const cssDocs = parseCssCustomProperties(styleText);
+    expect(cssDocs).toEqual([
+      { name: `--color`, description: `This is the description for color.` },
+      { name: `--background`, description: `This is the description for background. It is two sentences and some :: man.` }
+    ]);
+  });
+
   it('docs', () => {
     const styleText = `
       /**

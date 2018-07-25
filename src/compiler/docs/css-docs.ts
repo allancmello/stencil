@@ -42,7 +42,7 @@ function parseCssComment(cssProps: d.CssCustomProperty[], comment: string) {
     return line;
   });
 
-  comment = lines.join(' ').trim();
+  comment = lines.join(' ').replace(/\t/g, ' ').trim();
 
   while (comment.includes('  ')) {
     comment = comment.replace('  ', ' ');
@@ -60,7 +60,7 @@ function parseCssComment(cssProps: d.CssCustomProperty[], comment: string) {
     const splt = doc.split(`:`);
     const cssProp: d.CssCustomProperty = {
       name: splt[0].trim(),
-      description: (splt.shift() && splt.join(`:`)).trim()
+      docs: (splt.shift() && splt.join(`:`)).trim()
     };
 
     if (!cssProps.some(c => c.name === cssProp.name)) {

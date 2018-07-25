@@ -31,7 +31,7 @@ export class MarkdownCssCustomProperties {
     this.cssProps.forEach(cssProp => {
       table.addRow([
         '`' + cssProp.name + '`',
-        cssProp.description
+        cssProp.docs
       ]);
     });
 

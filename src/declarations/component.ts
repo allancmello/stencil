@@ -206,7 +206,7 @@ export interface JSDoc {
 
 export interface CssCustomProperty {
   name: string;
-  description: string;
+  docs: string;
 }
 
 

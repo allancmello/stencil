@@ -1,7 +1,7 @@
 import * as d from '../../declarations';
 import { AUTO_GENERATE_COMMENT, NOTE } from './constants';
 import { MarkdownAttrs } from './markdown-attrs';
-import { MarkdownCssCustomProperties } from './markdown-css-properties';
+import { MarkdownCssCustomProperties } from './markdown-css-props';
 import { MarkdownEvents } from './markdown-events';
 import { MarkdownMethods } from './markdown-methods';
 import { MarkdownProps } from './markdown-props';
